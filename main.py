@@ -1,4 +1,3 @@
-from requests import get
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
@@ -10,4 +9,4 @@ browser = webdriver.Chrome(options=options)
 
 browser.get("https://kr.indeed.com/jobs?q=python&limit=50")
 
-print(browser.page_source)
+soup = BeautifulSoup(browser.page_source, "html.parser")
