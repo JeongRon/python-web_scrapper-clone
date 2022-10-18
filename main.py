@@ -1,15 +1,13 @@
 from requests import get
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from extractors.wwr import extract_wwr_jobs
 
-base_url = "https://kr.indeed.com/jobs?q="
-search_term = "python"
+options = Options()
 
-response = get(f"{base_url}{search_term}")
+browser = webdriver.Chrome(options=options)
 
-if response.status_code != 200:
-    print("Can not request page")
-else:
-    soup = BeautifulSoup(response.text, "html.parser")
-    job_list = soup.find("ul", class_="jobsearch-ResultsList")
-    jobs = job_list.find_all("li", recursive=False)  # ul 바로아래의 li만 찾기!
+browser.get("https://kr.indeed.com/jobs?q=python&limit=50")
+
+print(browser.page_source)
